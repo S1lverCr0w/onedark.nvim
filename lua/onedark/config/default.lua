@@ -19,6 +19,7 @@ return {
     return {}
   end,
   sidebars = {},
+  style = 'dark', -- 'dark' | 'light'
   transparent = false,
   transparent_sidebar = false,
   variable_style = types.od.HighlightStyle.None,

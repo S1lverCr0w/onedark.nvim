@@ -24,6 +24,7 @@ config.schema = {
   msg_area_style = vim_config.get(vim.g.onedark_msg_area_style, default_config.msg_area_style),
   overrides = vim_config.get(vim.g.onedark_overrides, default_config.overrides),
   sidebars = vim_config.get(vim.g.onedark_sidebars, default_config.sidebars),
+  style = vim_config.get(vim.g.onedark_style, default_config.style),
   transparent = vim_config.get(vim.g.onedark_transparent, default_config.transparent),
   transparent_sidebar = vim_config.get(vim.g.onedark_transparent_sidebar, default_config.transparent_sidebar),
   variable_style = vim_config.get(vim.g.onedark_variable_style, default_config.variable_style),

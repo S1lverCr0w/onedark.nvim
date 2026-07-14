@@ -2,18 +2,11 @@ local util = require('onedark.util')
 
 local colors = {}
 
----@param cfg od.ConfigSchema
----@return od.ColorPalette
-colors.setup = function(cfg)
-  cfg = cfg or require('onedark.config').schema
-
-  ---@type od.ColorPalette
-  local c = {
+---@type table<string, od.ColorPalette>
+local palettes = {
+  dark = {
     none = 'NONE',
-    -- bg0 = '#282c34',
-    -- bg0 = '#181A1F',
     bg0 = '#1b1d22',
-    -- bg1 = '#21252b',
     bg1 = '#16181d',
     bg_highlight = '#2c313a',
     bg_visual = '#393f4a',
@@ -44,7 +37,54 @@ colors.setup = function(cfg)
       pink = '#f55385',
       gray = '#4d5a5e',
     },
-  }
+  },
+
+  light = {
+    none = 'NONE',
+    bg0 = '#fafafa',
+    bg1 = '#f0f0f1',
+    bg_highlight = '#e5e5e6',
+    bg_visual = '#d9d9db',
+    black0 = '#383a42',
+    blue0 = '#4078f2',
+    blue1 = '#3b5bdb',
+    cyan0 = '#0184bc',
+    fg0 = '#383a42',
+    fg_dark = '#696c77',
+    fg_gutter = '#a0a1a7',
+    fg_light = '#4f525e',
+    green0 = '#50a14f',
+    orange0 = '#a05a00',
+    orange1 = '#986801',
+    purple0 = '#a626a4',
+    red0 = '#e45649',
+    red1 = '#ca1243',
+    red2 = '#d0021b',
+    yellow0 = '#f0c674',
+    yellow1 = '#c18401',
+    dev_icons = {
+      blue = '#519aba',
+      green0 = '#8dc149',
+      yellow = '#986801',
+      orange = '#a05a00',
+      red = '#cc3e44',
+      purple = '#a074c4',
+      pink = '#d0507a',
+      gray = '#a0a1a7',
+    },
+  },
+}
+
+---@param cfg od.ConfigSchema
+---@return od.ColorPalette
+colors.setup = function(cfg)
+  cfg = cfg or require('onedark.config').schema
+
+  local style = cfg.style or 'dark'
+  local base = palettes[style] or palettes.dark
+
+  ---@type od.ColorPalette
+  local c = vim.deepcopy(base)
 
   -- useful for 'util.darken()' and 'util.lighten()'
   util.bg = c.bg0
