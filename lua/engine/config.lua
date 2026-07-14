@@ -1,5 +1,5 @@
-local vim_config = require('onedark.config.vim_config')
-local default_config = require('onedark.config.default')
+local vim_config = require('engine.config.vim_config')
+local default_config = require('engine.config.default')
 
 vim = vim or { g = {} }
 ---@class od.Config

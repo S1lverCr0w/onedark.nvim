@@ -1,5 +1,5 @@
-local hsluv = require('onedark.hsluv')
-local types = require('onedark.types')
+local hsluv = require('engine.hsluv')
+local types = require('engine.types')
 
 ---@class od.Util
 local util = {}
@@ -224,7 +224,7 @@ util.load = function(hi)
   util.apply_overrides(hi.base, overrides, hi.config.dev)
   util.apply_overrides(hi.plugins, overrides, hi.config.dev)
 
-  local autocmds = require('onedark.autocmds')
+  local autocmds = require('engine.autocmds')
 
   -- load base theme
   util.syntax(hi.base)

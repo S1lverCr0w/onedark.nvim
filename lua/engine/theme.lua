@@ -1,13 +1,13 @@
-local colors = require('onedark.colors')
-local types = require('onedark.types')
-local util = require('onedark.util')
+local colors = require('engine.colors')
+local types = require('engine.types')
+local util = require('engine.util')
 
 local theme = {}
 
 ---@param cfg od.ConfigSchema
 ---@return od.Highlights
 theme.setup = function(cfg)
-  cfg = cfg or require('onedark.config').schema
+  cfg = cfg or require('engine.config').schema
 
   ---@class od.Highlights
   local hi = {}

@@ -1,5 +1,5 @@
-local colors = require('onedark').get_colors()
-local util = require('onedark.util')
+local colors = require('engine').get_colors()
+local util = require('engine.util')
 
 ---Generate onedark theme for kitty terminal.
 return function()

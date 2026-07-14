@@ -1,4 +1,4 @@
-local types = require('onedark.types')
+local types = require('engine.types')
 
 ---@return od.ConfigSchema
 return {

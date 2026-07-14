@@ -1,6 +1,6 @@
 package.path = './lua/?/init.lua;./lua/?.lua'
 
-local types = require('onedark.types')
+local types = require('engine.types')
 
 ---Write content to file.
 ---@param str string content of file.
@@ -13,7 +13,7 @@ local function write(str, file_name)
 end
 
 for terminal, ext in pairs(types.od.TerminalConf) do
-  local plugin = require('onedark.terminal.' .. terminal)
+  local plugin = require('engine.terminal.' .. terminal)
   local file_name = 'terminal/' .. terminal .. '_onedark.' .. ext
   write(plugin(), file_name)
 end

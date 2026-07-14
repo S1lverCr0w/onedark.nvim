@@ -1,4 +1,4 @@
-local util = require('onedark.util')
+local util = require('engine.util')
 
 local colors = {}
 
@@ -13,7 +13,7 @@ local function load_palette(name)
   if ok then
     return palette
   end
-  return require('onedark.fallback_palette.edpt_onedark')
+  return require('engine.fallback_palette.edpt_onedark')
 end
 
 ---@type table<string, od.ColorPalette>
@@ -25,7 +25,7 @@ local palettes = {
 ---@param cfg od.ConfigSchema
 ---@return od.ColorPalette
 colors.setup = function(cfg)
-  cfg = cfg or require('onedark.config').schema
+  cfg = cfg or require('engine.config').schema
 
   local style = cfg.style or 'dark'
   local base = palettes[style] or palettes.dark
