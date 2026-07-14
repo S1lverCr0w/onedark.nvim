@@ -2,20 +2,22 @@
 local autocmds = {}
 
 ---Delete the autocmds when the theme changes to something else
-autocmds.on_colorscheme = function()
-  if vim.g.colors_name ~= 'onedark' then
-    vim.cmd('silent! autocmd! onedark')
-    vim.cmd('silent! augroup! onedark')
+---@param config od.ConfigSchema
+autocmds.on_colorscheme = function(config)
+  if vim.g.colors_name ~= config.colors_name then
+    vim.cmd('silent! autocmd! engine')
+    vim.cmd('silent! augroup! engine')
   end
 end
 
 ---@param config od.ConfigSchema
 autocmds.viml_cmds = function(config)
-  vim.cmd('augroup onedark')
+  vim.cmd('augroup engine')
   vim.cmd('autocmd!')
-  vim.cmd('autocmd ColorScheme * lua require("engine.util").on_colorscheme()')
+  vim.cmd(string.format('autocmd ColorScheme * lua require("engine.util").on_colorscheme(require("engine.config").schema)'))
   if config.hot_reload then
-    vim.cmd('autocmd BufWritePost */lua/onedark/** nested colorscheme onedark')
+    vim.cmd('autocmd BufWritePost */lua/engine/** nested colorscheme onedark')
+    -- see native_cmds below for the corrected version; viml_cmds is legacy fallback only
   end
   for _, sidebar in ipairs(config.sidebars) do
     if sidebar == 'terminal' then
@@ -29,14 +31,14 @@ end
 
 ---@param config od.ConfigSchema
 autocmds.native_cmds = function(config)
-  local group = vim.api.nvim_create_augroup('onedark', { clear = false })
+  local group = vim.api.nvim_create_augroup('engine', { clear = false })
 
   -- Delete the onedark autocmds when the theme changes to something else
   vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '*',
     group = group,
     callback = function()
-      if vim.g.colors_name ~= 'onedark' then
+      if vim.g.colors_name ~= config.colors_name then
         pcall(vim.api.nvim_del_augroup_by_id, group)
       end
     end,
@@ -45,11 +47,11 @@ autocmds.native_cmds = function(config)
   if config.hot_reload then
     -- Enables hot-reloading in onedark.
     vim.api.nvim_create_autocmd('BufWritePost', {
-      pattern = '*/lua/onedark/**',
+      pattern = '*/lua/engine/**',
       nested = true,
       group = group,
       callback = function()
-        vim.cmd('colorscheme onedark')
+        vim.cmd('colorscheme ' .. config.colors_name)
       end,
     })
   end

@@ -11,6 +11,7 @@ end
 function onelight.get_colors(cfg)
     cfg = cfg or {}
     cfg.style = "light"
+    cfg.colors_name = "onelight"
     return engine.get_colors(cfg)
 end
 

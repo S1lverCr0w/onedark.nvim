@@ -14,6 +14,7 @@ end
 onedark.get_colors = function(cfg)
     cfg = cfg or {}
     cfg.style = 'dark'
+    user_config.colors_name = 'onedark'
     return engine.get_colors(cfg)
 end
 

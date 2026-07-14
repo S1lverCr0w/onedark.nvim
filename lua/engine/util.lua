@@ -217,7 +217,7 @@ util.load = function(hi)
   end
 
   vim.o.termguicolors = true
-  vim.g.colors_name = 'onedark'
+  vim.g.colors_name = hi.config.colors_name or 'onedark'
 
   -- override colors
   local overrides = hi.config.overrides(hi.colors)

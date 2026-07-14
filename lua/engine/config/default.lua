@@ -20,6 +20,7 @@ return {
   end,
   sidebars = {},
   style = 'dark', -- 'dark' | 'light'
+  colors_name = 'onedark', -- 'onedark' | 'onelight'
   transparent = false,
   transparent_sidebar = false,
   variable_style = types.od.HighlightStyle.None,
