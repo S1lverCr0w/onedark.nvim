@@ -657,7 +657,7 @@ theme.setup = function(cfg)
     LightspeedLabelOverlapped = { fg = c.red0, style = Styles.Bold },
     LightspeedLabelDistant = { fg = c.purple0 },
     LightspeedLabelDistantOverlapped = { fg = c.purple0, style = Styles.Underline },
-    LightspeedShortcut = { fg = c.green0, style = string.format('%s,%s', Styles.Bold, Styles.Underline) },
+    LightspeedShortcut = { fg = c.green0, style = Styles.Bold .. ',' .. Styles.Underline },
     LightspeedMaskedChar = { fg = c.red0, style = Styles.Bold },
     LightspeedUnlabeledMatch = { fg = c.blue0, style = Styles.Bold },
     LightspeedOneCharMatch = { link = 'LightspeedShortcut' },
