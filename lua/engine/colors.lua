@@ -9,7 +9,7 @@ local colors = {}
 ---@param name string
 ---@return od.ColorPalette
 local function load_palette(name)
-  local ok, palette = pcall(require, 'colorschemes.' .. name)
+  local ok, palette = pcall(require, name .. '.' .. name)
   if ok then
     return palette
   end
