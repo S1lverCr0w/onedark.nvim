@@ -6,29 +6,28 @@ local colors = {}
 
 ---Load a palette from lua/colorschemes/, falling back to the
 ---built-in engine default if it's missing or fails to load.
+---Cached per name so repeated calls (e.g. switching back and forth)
+---don't re-require the same file.
 ---@param name string
 ---@return od.ColorPalette
+local palette_cache = {}
+
 local function load_palette(name)
-  local ok, palette = pcall(require, name .. '.' .. name)
-  if ok then
-    return palette
+    if palette_cache[name] then
+    return palette_cache[name]
   end
-  return require('engine.fallback_palette.edpt_onedark')
+  local ok, palette = pcall(require, name .. '.' .. name)
+  palette_cache[name] = ok and palette or require('engine.fallback_palette.edpt_onedark')
+  return palette_cache[name]
 end
 
 ---@type table<string, od.ColorPalette>
-local palettes = {
-  dark = load_palette('onedark'),
-  light = load_palette('onelight'),
-}
-
 ---@param cfg od.ConfigSchema
 ---@return od.ColorPalette
 colors.setup = function(cfg)
   cfg = cfg or require('engine.config').schema
 
-  local style = cfg.style or 'dark'
-  local base = palettes[style] or palettes.dark
+  local base = load_palette(cfg.colors_name or 'onedark')
 
   ---@type od.ColorPalette
   local c = vim.deepcopy(base)
