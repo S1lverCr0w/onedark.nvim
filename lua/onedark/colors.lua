@@ -3,9 +3,23 @@ local util = require('onedark.util')
 local colors = {}
 
 ---@type table<string, od.ColorPalette>
+
+---Load a palette from lua/colorschemes/, falling back to the
+---built-in engine default if it's missing or fails to load.
+---@param name string
+---@return od.ColorPalette
+local function load_palette(name)
+  local ok, palette = pcall(require, 'colorschemes.' .. name)
+  if ok then
+    return palette
+  end
+  return require('onedark.fallback_palette.edpt_onedark')
+end
+
+---@type table<string, od.ColorPalette>
 local palettes = {
-  dark = require('onedark.palettes.dark'),
-  light = require('onedark.palettes.light'),
+  dark = load_palette('onedark'),
+  light = load_palette('onelight'),
 }
 
 ---@param cfg od.ConfigSchema
