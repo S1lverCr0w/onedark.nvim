@@ -13,7 +13,7 @@ end
 autocmds.viml_cmds = function(config)
   vim.cmd('augroup onedark')
   vim.cmd('autocmd!')
-  vim.cmd('autocmd ColorScheme * lua require("onedark.util").on_colorscheme()')
+  vim.cmd('autocmd ColorScheme * lua require("engine.util").on_colorscheme()')
   if config.hot_reload then
     vim.cmd('autocmd BufWritePost */lua/onedark/** nested colorscheme onedark')
   end
