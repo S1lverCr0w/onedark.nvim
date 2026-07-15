@@ -173,15 +173,25 @@ theme.setup = function(cfg)
         LspDiagnosticsUnderlineInformation = { sp = c.info, style = Styles.Undercurl }, -- Used to underline "Information" diagnostics
         LspDiagnosticsUnderlineHint = { sp = c.hint, style = Styles.Undercurl }, -- Used to underline "Hint" diagnostics
         LspSignatureActiveParameter = { fg = c.blue0 }, -- Used to highlight the active parameter in a signature
+        LspCodeLens = { fg = c.fg_dark, style = Styles.Italic },
+        LspCodeLensSeparator = { fg = c.fg_gutter },
+        LspInlayHint = { fg = c.fg_dark, bg = c.bg_highlight, style = Styles.Italic },
+        LspReferenceTarget = { link = 'LspReferenceRead' },
 
-        DiagnosticError = { link = 'LspDiagnosticsDefaultError' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
-        DiagnosticWarn = { link = 'LspDiagnosticsDefaultWarning' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
-        DiagnosticInfo = { link = 'LspDiagnosticsDefaultInformation' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
-        DiagnosticHint = { link = 'LspDiagnosticsDefaultHint' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
-        DiagnosticsVirtualTextError = { link = 'LspDiagnosticsVirtualTextError' }, -- Used for "Error" diagnostic virtual text
-        DiagnosticsVirtualTextWarning = { link = 'LspDiagnosticsVirtualTextWarning' }, -- Used for "Warning" diagnostic virtual text
-        DiagnosticsVirtualTextInformation = { link = 'LspDiagnosticsVirtualTextInformation' }, -- Used for "Information" diagnostic virtual text
-        DiagnosticsVirtualTextHint = { link = 'LspDiagnosticsVirtualTextHint' }, -- Used for "Hint" diagnostic virtual text
+        -- -- old unused
+        -- DiagnosticError = { link = 'LspDiagnosticsDefaultError' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
+        -- DiagnosticWarn = { link = 'LspDiagnosticsDefaultWarning' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
+        -- DiagnosticInfo = { link = 'LspDiagnosticsDefaultInformation' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
+        -- DiagnosticHint = { link = 'LspDiagnosticsDefaultHint' }, -- Used as the base highlight group. Other LspDiagnostic highlights link to this by default (except Underline)
+        -- DiagnosticsVirtualTextError = { link = 'LspDiagnosticsVirtualTextError' }, -- Used for "Error" diagnostic virtual text
+        -- DiagnosticsVirtualTextWarning = { link = 'LspDiagnosticsVirtualTextWarning' }, -- Used for "Warning" diagnostic virtual text
+        -- DiagnosticsVirtualTextInformation = { link = 'LspDiagnosticsVirtualTextInformation' }, -- Used for "Information" diagnostic virtual text
+        -- DiagnosticsVirtualTextHint = { link = 'LspDiagnosticsVirtualTextHint' }, -- Used for "Hint" diagnostic virtual text
+        DiagnosticVirtualTextError = { link = 'LspDiagnosticsVirtualTextError' }, -- Used for "Error" diagnostic virtual text
+        DiagnosticVirtualTextWarn = { link = 'LspDiagnosticsVirtualTextWarning' }, -- Used for "Warning" diagnostic virtual text
+        DiagnosticVirtualTextInfo = { link = 'LspDiagnosticsVirtualTextInformation' }, -- Used for "Information" diagnostic virtual text
+        DiagnosticVirtualTextHint = { link = 'LspDiagnosticsVirtualTextHint' }, -- Used for "Hint" diagnostic virtual text
+
         DiagnosticUnderlineError = { link = 'LspDiagnosticsUnderlineError' }, -- Used to underline "Error" diagnostics
         DiagnosticUnderlineWarn = { link = 'LspDiagnosticsUnderlineWarning' }, -- Used to underline "Warning" diagnostics
         DiagnosticUnderlineInfo = { link = 'LspDiagnosticsUnderlineInformation' }, -- Used to underline "Information" diagnostics
@@ -539,10 +549,32 @@ theme.setup = function(cfg)
         WhichKeyValue = { fg = c.fg0 },
 
         -- LspSaga
-        DiagnosticError = { fg = c.error },
         DiagnosticWarning = { fg = c.warning },
         DiagnosticInformation = { fg = c.info },
         DiagnosticHint = { fg = c.hint },
+        DiagnosticOk = { fg = c.green0 },
+        DiagnosticDeprecated = { fg = c.fg_gutter, style = Styles.Strikethrough },
+
+        DiagnosticSignError = { link = 'DiagnosticError' },
+        DiagnosticSignWarn = { link = 'DiagnosticWarn' },
+        DiagnosticSignInfo = { link = 'DiagnosticInfo' },
+        DiagnosticSignHint = { link = 'DiagnosticHint' },
+        DiagnosticSignOk = { link = 'DiagnosticOk' },
+
+        DiagnosticFloatingError = { link = 'DiagnosticError' },
+        DiagnosticFloatingWarn = { link = 'DiagnosticWarn' },
+        DiagnosticFloatingInfo = { link = 'DiagnosticInfo' },
+        DiagnosticFloatingHint = { link = 'DiagnosticHint' },
+        DiagnosticFloatingOk = { link = 'DiagnosticOk' },
+
+        DiagnosticVirtualTextOk = { fg = c.green0, bg = util.darken(c.green0, 0.1) },
+        DiagnosticVirtualLinesError = { fg = c.error },
+        DiagnosticVirtualLinesWarn = { fg = c.warning },
+        DiagnosticVirtualLinesInfo = { fg = c.info },
+        DiagnosticVirtualLinesHint = { fg = c.hint },
+        DiagnosticVirtualLinesOk = { fg = c.green0 },
+
+        DiagnosticUnderlineOk = { sp = c.green0, style = Styles.Undercurl },
 
         -- NeoVim
         healthError = { fg = c.error },
