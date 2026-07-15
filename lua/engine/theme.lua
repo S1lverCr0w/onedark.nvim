@@ -57,7 +57,7 @@ theme.setup = function(cfg)
         Normal = { fg = c.fg0, bg = cfg.transparent and c.none or c.bg0 }, -- normal text
         NormalNC = { fg = c.fg0, bg = cfg.transparent and c.none or c.bg0 }, -- normal text in non-current windows
         NormalSB = { fg = c.fg_dark, bg = c.bg_sidebar }, -- normal text in non-current windows
-        NormalFloat = { fg = c.fg0, bg = c.bg_float }, -- Normal text in floating windows.
+        NormalFloat = { fg = c.fg0, bg = c.bg1 }, -- Normal text in floating windows.
         FloatBorder = { fg = c.blue0, bg = c.bg_float },
         Pmenu = { fg = c.fg0, bg = c.bg1 }, -- Popup menu: normal item.
         PmenuSel = { fg = c.bg1, bg = util.darken(c.green0, 0.8) }, -- Popup menu: selected item.at
@@ -210,6 +210,7 @@ theme.setup = function(cfg)
 
         ['@annotation'] = { link = 'PreProc' }, -- For C/Dart attributes, annotations that can be attached to the code to denote some kind of meta information.
         ['@attribute'] = { link = 'PreProc' }, -- (unstable) TODO: docs
+        ['@attribute.builtin'] = { link = '@attribute' },
         ['@boolean'] = { link = 'Boolean' }, -- For booleans.
 
         ['@character'] = { link = 'Character' }, -- For characters.
@@ -221,6 +222,7 @@ theme.setup = function(cfg)
         ['@comment.error'] = { fg = c.bg0, bg = c.error },
         ['@comment.hint'] = { fg = c.bg0, bg = c.hint },
         ['@comment.todo'] = { link = 'Todo' },
+        ['@comment.note'] = { fg = c.bg0, bg = c.green0 }, -- consistent with @comment.info/warning/error/hint, distinct color for "note"
 
         ['@constructor'] = { fg = c.red1 }, -- For constructor calls and definitions: ` = { }` in Lua, and Java constructors.
 
@@ -253,12 +255,14 @@ theme.setup = function(cfg)
         ['@label'] = { fg = c.blue0 }, -- For labels: `label:` in C and `:label:` in Lua.
 
         ['@module'] = { link = 'Type' }, -- For identifiers referring to modules and namespaces.
+        ['@module.builtin'] = { link = '@module' },
         ['@none'] = { fg = c.none },
         ['@number'] = { link = 'Number' }, -- For all numbers
         ['@number.float'] = { link = 'Float' }, -- For floats.
         ['@operator'] = { fg = c.cyan0 }, -- For any operator: ``, but also `->` and `*` in C.
 
         ['@variable.parameter'] = { fg = c.red1 }, -- For parameters of a function.
+        ['@variable.parameter.builtin'] = { link = '@variable.parameter' },
         ['@variable.parameter.reference'] = { link = '@variable.parameter' }, -- For references to parameters of a function.
         ['@variable.member'] = { fg = c.cyan0 }, -- For fields.
         ['@variable'] = { fg = c.red0, style = cfg.variable_style }, -- Any variable name that does not have another highlight.
@@ -269,6 +273,7 @@ theme.setup = function(cfg)
         ['@punctuation.delimiter'] = { fg = c.fg0 }, -- For delimiters ie: `.`
         ['@punctuation.bracket'] = { fg = c.fg_dark }, -- For brackets and parens.
         ['@punctuation.special'] = { link = 'Special' },
+        ['@punctuation'] = { link = 'Delimiter' }, -- base fallback for the sub-captures above
 
         ['@string'] = { link = 'String' }, -- For strings.
         ['@string.regexp'] = { fg = c.orange1 }, -- For regexes.
@@ -283,6 +288,7 @@ theme.setup = function(cfg)
         ['@type.definition'] = { link = 'Typedef' },
 
         ['@tag'] = { fg = c.red1 }, -- Tags like html tag names.
+        ['@tag.builtin'] = { link = '@tag' },
         ['@tag.attribute'] = { fg = c.orange0 },
         ['@tag.delimiter'] = { link = 'Delimiter' }, -- Tag delimiter like `<` `>` `/`
 
@@ -298,6 +304,8 @@ theme.setup = function(cfg)
         ['@markup.heading.4.markdown'] = { link = '@markup.heading' },
         ['@markup.heading.5.markdown'] = { link = '@markup.heading' },
         ['@markup.heading.6.markdown'] = { link = '@markup.heading' },
+        ['@markup.heading.1.delimiter.vimdoc'] = { link = '@markup.heading' },
+        ['@markup.heading.2.delimiter.vimdoc'] = { link = '@markup.heading' },
         ['@markup.raw'] = { link = '@markup' }, -- Literal text.
         ['@markup.list'] = { fg = c.fg0 }, -- For special punctutation that does not fall in the categories before.
         ['@markup.list.checked'] = { fg = c.blue1 },
@@ -330,6 +338,30 @@ theme.setup = function(cfg)
 
         -- Rust
         ['@lsp.type.attributeBracket.rust'] = { fg = c.fg_dark }, -- Make # and [] in Rust attributes the same color
+
+        -- LSP semantic tokens: mirror the equivalent Treesitter capture so
+        -- LSP-highlighted and Treesitter-highlighted code look identical
+        ['@lsp.mod.deprecated'] = { fg = c.fg_gutter, style = Styles.Strikethrough },
+        ['@lsp.type.class'] = { link = '@type' },
+        ['@lsp.type.comment'] = { link = '@comment' },
+        ['@lsp.type.decorator'] = { link = '@attribute' },
+        ['@lsp.type.enum'] = { link = '@type' },
+        ['@lsp.type.enumMember'] = { link = '@constant' },
+        ['@lsp.type.event'] = { link = '@type' },
+        ['@lsp.type.function'] = { link = '@function' },
+        ['@lsp.type.interface'] = { link = '@type' },
+        ['@lsp.type.keyword'] = { link = '@keyword' },
+        ['@lsp.type.macro'] = { link = '@constant.macro' },
+        ['@lsp.type.method'] = { link = '@function.method' },
+        ['@lsp.type.modifier'] = { link = '@keyword.modifier' },
+        ['@lsp.type.namespace'] = { link = '@module' },
+        ['@lsp.type.number'] = { link = 'Number' },
+        ['@lsp.type.operator'] = { link = '@operator' },
+        ['@lsp.type.regexp'] = { link = '@string.regexp' },
+        ['@lsp.type.string'] = { link = 'String' },
+        ['@lsp.type.struct'] = { link = '@type' },
+        ['@lsp.type.type'] = { link = '@type' },
+        ['@lsp.type.typeParameter'] = { link = '@type.definition' },
 
         Quote = { fg = c.green0 },
 
@@ -647,21 +679,21 @@ theme.setup = function(cfg)
         CocUnderline = { style = Styles.Undercurl },
 
         -- blink.cmp
-        BlinkCmpMenu = { fg = c.fg0, bg = c.bg_float },
-        BlinkCmpMenuBorder = { fg = c.fg_gutter, bg = c.bg_float },
+        BlinkCmpMenu = { fg = c.fg0, bg = c.bg1 },
+        BlinkCmpMenuBorder = { fg = c.fg_gutter, bg = c.bg1 },
         BlinkCmpMenuSelection = { bg = c.bg_highlight },
         BlinkCmpCursorLineMenuHack = { link = 'BlinkCmpMenuSelection' },
-        BlinkCmpScrollBarGutter = { bg = c.bg_float },
+        BlinkCmpScrollBarGutter = { bg = c.bg1 },
         BlinkCmpScrollBarThumb = { bg = c.bg_visual },
         BlinkCmpGhostText = { fg = c.fg_gutter, style = Styles.Italic },
 
-        BlinkCmpDoc = { fg = c.fg0, bg = c.bg_float },
-        BlinkCmpDocBorder = { fg = c.fg_gutter, bg = c.bg_float },
+        BlinkCmpDoc = { fg = c.fg0, bg = c.bg1 },
+        BlinkCmpDocBorder = { fg = c.fg_gutter, bg = c.bg1 },
         BlinkCmpDocSeparator = { fg = c.fg_gutter },
         BlinkCmpDocCursorLine = { link = 'BlinkCmpMenuSelection' },
 
-        BlinkCmpSignatureHelp = { fg = c.fg0, bg = c.bg_float },
-        BlinkCmpSignatureHelpBorder = { fg = c.fg_gutter, bg = c.bg_float },
+        BlinkCmpSignatureHelp = { fg = c.fg0, bg = c.bg1 },
+        BlinkCmpSignatureHelpBorder = { fg = c.fg_gutter, bg = c.bg1 },
         BlinkCmpSignatureHelpActiveParameter = { fg = c.orange1, style = Styles.Bold },
 
         BlinkCmpLabelDeprecated = { fg = c.fg_gutter, style = Styles.Strikethrough },
@@ -700,6 +732,10 @@ theme.setup = function(cfg)
 
         -- Indent blankline
         IblIndent = { fg = c.bg_visual, style = Styles.NoCombine },
+        ['@ibl.indent.char.1'] = { link = 'IblIndent' },
+        ['@ibl.whitespace.char.1'] = { link = 'IblIndent' },
+        ['@ibl.scope.char.1'] = { fg = c.blue0 }, -- current-scope indent guide, distinct from regular indent
+        ['@ibl.scope.underline.1'] = { style = Styles.Underline },
 
         -- Nvim-lsp-ts-tuils
         NvimLspTSUtilsInlineHint = { fg = c.bg_visual },
