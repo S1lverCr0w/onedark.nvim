@@ -8,10 +8,10 @@ local colors = {}
 ---built-in engine default if it's missing or fails to load.
 ---Cached per name so repeated calls (e.g. switching back and forth)
 ---don't re-require the same file.
----@param name string
----@return od.ColorPalette
 local palette_cache = {}
 
+---@param name string
+---@return od.ColorPalette
 local function load_palette(name)
     if palette_cache[name] then
     return palette_cache[name]
