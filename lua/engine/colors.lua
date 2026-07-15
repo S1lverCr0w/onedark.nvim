@@ -17,6 +17,9 @@ local function load_palette(name)
         return palette_cache[name]
     end
     local ok, palette = pcall(require, name .. '.' .. name)
+    local resolved = ok and palette or require('engine.fallback_palette.edpt_onedark')
+    util.validate_palette(name, resolved)
+    palette_cache[name] = resolved
     palette_cache[name] = ok and palette or require('engine.fallback_palette.edpt_onedark')
     return palette_cache[name]
 end
