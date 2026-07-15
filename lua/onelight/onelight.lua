@@ -1,7 +1,11 @@
 ---@type od.ColorPalette
 return {
     none = 'NONE',
-    bg0 = '#fafafa',
+    -- bg0 = '#fafafa', -- basic brightest
+    -- bg0 = '#f5f5f5', -- minimalist paper
+    -- bg0 = '#e6e6e6', -- 90% value
+    -- bg0 = '#d9d9d9', -- 85% value
+    bg0 = '#eff1f5', -- soft cool gray
     bg1 = '#f0f0f1',
     bg_highlight = '#e5e5e6',
     bg_visual = '#d9d9db',
