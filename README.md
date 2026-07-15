@@ -35,6 +35,13 @@
 
 Install the theme with your preferred package manager:
 
+[vim-pack](https://neovim.io/doc/user/pack/#_plugin-manager)
+
+```vim
+local function gh(repo) return 'https://github.com/' .. repo end
+vim.pack.add { { src = gh 'S1lverCr0w/edpt.nvim', version = "devel", } }
+```
+
 [vim-plug](https://github.com/junegunn/vim-plug)
 
 ```vim
@@ -59,6 +66,8 @@ colorscheme onedark
 ```lua
 -- Lua
 require('onedark').setup()
+-- or
+require('onelight').setup()
 ```
 
 ## Configuration
