@@ -3,15 +3,15 @@ local util = require('engine.util')
 
 ---Generate onedark theme for Alacritty terminal.
 return function()
-  local alacritty_colors = {}
-  for k, v in pairs(colors) do
-    if type(v) == 'string' then
-      alacritty_colors[k] = v:gsub('^#', '0x')
+    local alacritty_colors = {}
+    for k, v in pairs(colors) do
+        if type(v) == 'string' then
+            alacritty_colors[k] = v:gsub('^#', '0x')
+        end
     end
-  end
 
-  local alacritty = util.template(
-    [[
+    local alacritty = util.template(
+        [[
 # onedark Alacritty Colors
 colors:
   # Default colors
@@ -50,8 +50,8 @@ colors:
     - { index: 16, color: '${orange1}' }
     - { index: 17, color: '${red2}' }
 ]],
-    alacritty_colors
-  )
+        alacritty_colors
+    )
 
-  return alacritty
+    return alacritty
 end

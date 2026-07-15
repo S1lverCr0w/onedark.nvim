@@ -3,8 +3,8 @@ local util = require('engine.util')
 
 ---Generate onedark theme for kitty terminal.
 return function()
-  local kitty = util.template(
-    [[
+    local kitty = util.template(
+        [[
 # onedark colors for Kitty
 
 background ${bg0}
@@ -48,7 +48,7 @@ color15 ${fg0}
 color16 ${orange1}
 color17 ${red2}
 ]],
-    colors
-  )
-  return kitty
+        colors
+    )
+    return kitty
 end

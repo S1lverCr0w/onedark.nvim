@@ -1,6 +1,6 @@
 .DEFAULT_GOAL = lint
 
-src = lua/onedark
+src = lua/engine
 
 terminal: $(src)/terminal
 	lua $(src)/terminal/init.lua
