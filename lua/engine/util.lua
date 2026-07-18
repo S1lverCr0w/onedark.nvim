@@ -279,4 +279,23 @@ util.template = function(str, table)
     end))
 end
 
+---Validate that every string value in a palette table looks like a real
+---hex color (#rrggbb). Recurses into nested tables (e.g. dev_icons).
+---Errors loudly with the offending key/value so it's obvious what to fix.
+---@param name string  -- palette name, for the error message
+---@param tbl table
+---@param path string|nil  -- internal, used for nested-key error messages
+util.validate_palette = function(name, tbl, path)
+    for key, value in pairs(tbl) do
+        local full_key = path and (path .. '.' .. key) or key
+        if type(value) == 'table' then
+            util.validate_palette(name, value, full_key)
+        elseif type(value) == 'string' and value ~= 'NONE' then
+            if not value:match('^#%x%x%x%x%x%x$') then
+                error(string.format("palette '%s': %s = %q is not a valid hex color (expected '#rrggbb')", name, full_key, value))
+            end
+        end
+    end
+end
+
 return util
